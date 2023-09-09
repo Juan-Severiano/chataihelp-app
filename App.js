@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import { Component } from 'react';
-import {  StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {  StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons'
 
@@ -12,7 +11,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1,  justifyContent: 'flex-end', backgroundColor: '#1e1e1e' }}>
+      <>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#1e1e1e' }}>
+        <StatusBar barStyle="light-content" />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.userInput}
@@ -26,6 +27,7 @@ export default class App extends Component {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+      </>
     )
   }
 }
