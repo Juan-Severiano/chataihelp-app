@@ -1,35 +1,75 @@
-import { Component } from 'react';
-import {  StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Ionicons from '@expo/vector-icons/Ionicons'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default class App extends Component {
-  state = {
-    userInput: '',
+const OPENAI_API_KEY = "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";
+
+export default function App() {
+  const [userInput, setUserInput] = useState('');
+  const [chatResponse, setChatResponse] = useState('AI: Muita Rola');
+
+  const sendQuestion = () => {
+    const sQuestion = userInput;
+
+    fetch("https://api.openai.com/v1/chat/completions", {
+      method: 'POST',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + OPENAI_API_KEY,
+        "OpenAI-Organization": "org-04099gNSWTCq4d35T0hE2l09"
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        prompt: sQuestion,
+        max_tokens: 2048,
+        temperature: 0.5,
+      }),
+    })
+    .then(response => response.json())
+    .then(json => {
+      if (chatResponse) setChatResponse(chatResponse + "{\n}");
+
+      if (json.error?.message) {
+        setChatResponse(chatResponse + `Error: ${json.error.message}`);
+      } else if (json.choices?.[0].text) {
+        const text = json.choices[0].text || "Sem resposta";
+        setChatResponse(chatResponse + "AI: " + text);
+      }
+    })
+    .catch(e => console.log(e))
+    .finally(() => {
+      setUserInput('');
+    });
+    if (chatResponse) setChatResponse(chatResponse + "\n\n\n");
+    setUserInput('Carregando');
   }
 
-
-  render() {
-    return (
-      <>
-      <SafeAreaView style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: '#1e1e1e' }}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.userInput}
-            placeholder='Digite sua dúvida ...'
-            value={this.state.userInput}
-            onChangeText={text => this.setState({ userInput: text })}
-            placeholderTextColor='#cecece'
-          />
-          <TouchableOpacity style={styles.sendButton}>
-            <Ionicons color='#fff' name='send' size={30} />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-      </>
-    )
-  }
+  return (
+    <>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1e1e1e' }}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.responseContainer}>
+        <Text style={{ color: '#fff' }}>
+          {chatResponse}
+        </Text>
+      </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.userInput}
+          placeholder='Digite sua dúvida ...'
+          value={userInput}
+          onChangeText={text => setUserInput(text)}
+          placeholderTextColor='#cecece'
+        />
+        <TouchableOpacity style={styles.sendButton} onPress={sendQuestion}>
+          <Ionicons color='#fff' name='send' size={30} />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -52,5 +92,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20
+  },
+  responseContainer: {
+    width: '90%',
+    marginTop: 20,
   }
-})
+});
