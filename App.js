@@ -3,11 +3,14 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const OPENAI_API_KEY = "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";
+
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
 
 export default function App() {
   const [userInput, setUserInput] = useState('');
-  const [chatResponse, setChatResponse] = useState('AI: Muita Rola');
+  const [chatResponse, setChatResponse] = useState('AI: Seja bem vindo a nossa plataforma');
+  const [ chatResponses, setChatResponses ] = useState([])
 
   const sendQuestion = () => {
     const sQuestion = userInput;
@@ -29,10 +32,13 @@ export default function App() {
     })
     .then(response => response.json())
     .then(json => {
-      if (chatResponse) setChatResponse(chatResponse + "{\n}");
+      if (chatResponse) {
+        setChatResponse(chatResponse + "{'\n'}")
+        setChatResponses([chatResponse])
+      };
 
       if (json.error?.message) {
-        setChatResponse(chatResponse + `Error: ${json.error.message}`);
+        setChatResponse(chatResponse + "{'\n'}" + `Error: ${json.error.message}`);
       } else if (json.choices?.[0].text) {
         const text = json.choices[0].text || "Sem resposta";
         setChatResponse(chatResponse + "AI: " + text);
@@ -42,7 +48,7 @@ export default function App() {
     .finally(() => {
       setUserInput('');
     });
-    if (chatResponse) setChatResponse(chatResponse + "\n\n\n");
+    if (chatResponse) setChatResponse(chatResponse + "{'\n\n\n'}");
     setUserInput('Carregando');
   }
 
@@ -53,6 +59,9 @@ export default function App() {
       <View style={styles.responseContainer}>
         <Text style={{ color: '#fff' }}>
           {chatResponse}
+        </Text>
+        <Text style={{ color: '#fff' }}>
+          asasdasdasdas {'\n'} asdasdasda
         </Text>
       </View>
       <View style={styles.inputContainer}>
@@ -84,7 +93,7 @@ const styles = StyleSheet.create({
   sendButton: {
     padding: 20,
     borderRadius: 40,
-    backgroundColor: '#0eaa83'
+    backgroundColor: '#00d8ff'
   },
   inputContainer: {
     flexDirection: 'row',
