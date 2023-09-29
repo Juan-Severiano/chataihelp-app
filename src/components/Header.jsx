@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     headerContainer: {
         maxHeight: 100,
         padding: 10,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     imgHeader: {
         maxHeight: 50,
