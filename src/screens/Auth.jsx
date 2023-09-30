@@ -193,7 +193,11 @@ export default class Login extends Component {
             {this.state.stageNew ? 'Já possui uma conta? Entrar' : 'Não possui conta? Criar'}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{
+        <TouchableOpacity 
+        onPress={() => {
+            this.props.navigation.navigate('Chat')
+        }}
+        style={{
             marginTop: 10,
             width: '80%',
             alignItems: 'center',

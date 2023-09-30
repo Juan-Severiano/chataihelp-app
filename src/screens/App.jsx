@@ -12,16 +12,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Header from '../components/Header';
 import ResponseContainer from '../components/responseContainer';
+import conversation from '../assets/conversation';
 
 export default function App() {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([
     {
       user: false,
-      msg: 'AI: Seja bem vindo a nossa plataforma',
+      msg: "Olá, seja bem vindo a nossa plataforma, em que posso lhe ajudar? ",
     },
   ]);
-
 
   const main = (prompt) => {
     fetch("https://api.openai.com/v1/chat/completions", {
@@ -29,27 +29,24 @@ export default function App() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer API_KEY`,
+        Authorization: `Bearer ${process.env.EXPO_PUBLIC_API_KEY}`,
         "OpenAI-Organization": "org-3dkAnZx3PnWUlpbhM2MISlri"
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "system", content: prompt }],
-        max_tokens: 2,
+        messages: [{ role: "system", content: `${prompt} gere oque deve ser feito após isso, oque e quem deve ser procurado para que o problema seja resolvido` }],
+        max_tokens: 256,
         temperature: 0.4,
       }),
     })
     .then(response => response.json())
     .then(json =>{
-      console.log(json.choices[0].message.content)
       const msgContents = {
         user: false,
         msg: json.choices[0].message.content,
       };
-      
-      
-
-      setMessages([...messages, msgContents]);
+      console.log(json)
+      setMessages(prevMessages => [...prevMessages, msgContents]);
     })
     .catch(e => console.log(e))
   }
@@ -64,9 +61,8 @@ export default function App() {
       msg: userInput,
     };
   
-    const updatedMessages = [...messages, userMsgContent];
+    setMessages(prevMessages => [...prevMessages, userMsgContent]);
   
-    setMessages(updatedMessages);
     main(userInput);
   
     setUserInput('');
@@ -87,24 +83,25 @@ export default function App() {
           }
           }
         />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.userInput}
-          placeholder='Digite sua dúvida ...'
-          value={userInput}
-          onChangeText={text => setUserInput(text)}
-          placeholderTextColor='#cecece'
-        />
-        <TouchableOpacity
-          style={styles.sendButton}
-          onPress={() => {
-            main(userInput);
-            saveUserMessages()
-          }}
-        >
-          <Ionicons color='#fff' name='send' size={30} />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.inputContainer}>
+          <View style={[ styles.inputContainer, { backgroundColor: '#1e1e1e', height: 80 } ]}>
+            <TextInput
+              style={styles.userInput}
+              placeholder='Digite sua dúvida ...'
+              value={userInput}
+              onChangeText={text => setUserInput(text)}
+              placeholderTextColor='#cecece'
+            />
+            <TouchableOpacity
+              style={styles.sendButton}
+              onPress={() => {
+                saveUserMessages()
+              }}
+            >
+              <Ionicons color='#fff' name='send' size={30} />
+            </TouchableOpacity>
+          </View>
+        </View>
       </SafeAreaView>
     </>
   );
@@ -136,8 +133,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '87%',
-    marginBottom: 20,
+    marginTop: '93%',
     position: 'absolute',
   },
   responseContainer: {

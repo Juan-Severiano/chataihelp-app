@@ -21,7 +21,7 @@ export default [
     },
     {
       user: false,
-      msg: "AI: Além disso, verifique se existem políticas internas de combate à discriminação em seu local de trabalho. Elas podem ser úteis em seu caso.",
+      msg: "Olá, seja bem vindo a nossa plataforma, em que posso lhe ajudar? ",
     },
     {
       user: true,
