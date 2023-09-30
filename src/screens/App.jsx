@@ -6,14 +6,12 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
-  ScrollView,
   FlatList,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Header from './components/Header';
-import ResponseContainer from './components/responseContainer';
-import conversation from './assets/conversation';
+import Header from '../components/Header';
+import ResponseContainer from '../components/responseContainer';
 
 export default function App() {
   const [userInput, setUserInput] = useState('');
@@ -24,13 +22,14 @@ export default function App() {
     },
   ]);
 
+
   const main = (prompt) => {
     fetch("https://api.openai.com/v1/chat/completions", {
       method: 'POST',
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer `,
+        Authorization: `Bearer API_KEY`,
         "OpenAI-Organization": "org-3dkAnZx3PnWUlpbhM2MISlri"
       },
       body: JSON.stringify({
