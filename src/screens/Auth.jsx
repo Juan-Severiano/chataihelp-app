@@ -17,11 +17,11 @@ export default class Login extends Component {
 
   signinOrSignup = () => {
     if (this.state.stageNew) {
-      Alert.alert('Sucesso!', 'Criar conta')
       this.register()
+      Alert.alert('Sucesso!', 'Criar conta')
     } else {
-      Alert.alert('Sucesso!', 'Logar')
       this.login()
+      Alert.alert('Sucesso!', 'Logar')
     }
     console.log(this.state)
   }
@@ -65,6 +65,8 @@ export default class Login extends Component {
   }
 
   register = async () => {
+    console.log('iniciando o registro');
+
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -98,7 +100,7 @@ export default class Login extends Component {
           showError: false,
           errors: []
         })
-      } else if (response.status === 400 || response.status === 401 || response.status === 403) {
+      } else if (response.status === 400 || response.status === 401) {
         this.setState({ showError: true });
         const errors = [];
         response.data.username ? errors.push(`Email: ${response.data.username}`) : null;
@@ -111,6 +113,7 @@ export default class Login extends Component {
       console.error('Erro na requisição:', error);
     }
   } 
+  
 
   render() {
     return (
