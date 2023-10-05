@@ -24,93 +24,12 @@ export default [
       msg: "Olá, seja bem vindo a nossa plataforma, em que posso lhe ajudar? ",
     },
     {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
+      user: false,
+      msg: "Olá, seja bem vindo a nossa plataforma, em que posso lhe ajudar? ",
     },
     {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
+      user: false,
+      msg: "Olá, seja bem vindo a nossa plataforma, em que posso lhe ajudar? ",
     },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    {
-      user: true,
-      msg: "Usuário: Ok, vou começar a documentar tudo.",
-    },
-    
   ];
   

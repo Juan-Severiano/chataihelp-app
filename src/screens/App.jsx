@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Header from '../components/Header';
 import ResponseContainer from '../components/responseContainer';
-import conversation from '../assets/conversation';
+import conversation from '../assets/conversation'
 
 export default function App() {
   const [userInput, setUserInput] = useState('');
@@ -70,11 +70,11 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#1e1e1e', width: '100%' }}>
+      <SafeAreaView style={{ flex: 2, backgroundColor: '#1e1e1e', width: '100%' }}>
         <StatusBar barStyle="light-content" />
         <Header />
         <FlatList
-          data={messages}
+          data={conversation}
           renderItem={({ item }) => {
             if (item.user === true) return <ResponseContainer msg={item.msg} userMsg={item.user}  />;
             return <ResponseContainer
