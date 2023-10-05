@@ -100,7 +100,7 @@ export default class Login extends Component {
           showError: false,
           errors: []
         })
-      } else if (response.status === 400 || response.status === 401) {
+      } else if (response.status >= 400 && response.status < 500) {
         this.setState({ showError: true });
         const errors = [];
         response.data.username ? errors.push(`Email: ${response.data.username}`) : null;
